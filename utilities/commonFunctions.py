@@ -14,25 +14,28 @@ def initialize_driver():
     return browser
 
 # driver---->selenium webdriver instance which is used to interact with browsers
-def load_page(driver,url): # This function is used to load webpage using selenium's webdriver
-    driver.get(url)         # This command instructs the webdriver to open the specified url in the browser
-    time.sleep(5)  # Wait for the page to load
+# This function is used to load webpage using selenium's webdriver
+# This command instructs the webdriver to open the specified url in the browser
+def load_page(driver,url): 
+    driver.get(url)         
+    time.sleep(5)  
 
 # Function to scrape bus routes
-def scrape_bus_routes(driver): # by passing driver as argument to reuse an existing webdriver instance
+# by passing driver as argument to reuse an existing webdriver instance
+def scrape_bus_routes(driver): 
     route_elements = driver.find_elements(By.CLASS_NAME, 'route')
     bus_routes_link = [route.get_attribute('href') for route in route_elements]
     bus_routes_name = [route.text.strip() for route in route_elements]
     return bus_routes_link, bus_routes_name
 
+# Convert the list of dictionaries to a DataFrame
+# Ensure the folder exists, or create it  
+ # Combine folder path and file name 
+ # Save the DataFrame to a CSV file
 def exportCsv(bus_details,fileName):
-    # Convert the list of dictionaries to a DataFrame
     folderPath='../exportedCsvFiles'
-    # Ensure the folder exists, or create it
     if not os.path.exists(folderPath):
         os.makedirs(folderPath)
-    # Combine folder path and file name
     file_path = os.path.join(folderPath,fileName)
     df = pd.DataFrame(bus_details)
-    # Save the DataFrame to a CSV file
     df.to_csv(file_path, index=False)
