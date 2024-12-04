@@ -77,10 +77,10 @@ elif page == "RedBus Search":
     ]
 
     if bus_type:
-        filtered_data['bus_type_normalized'] = filtered_data['Bus_Type'].str.lower().str.strip()
-        print(f'Normalized bus is {filtered_data['bus_type_normalized']}')
+        filtered_data['Bus_Type'] = filtered_data['Bus_Type'].str.lower().str.strip()
+        print(f'Normalized bus is {filtered_data['Bus_Type']}')
         normalized_bus_type = [item.lower() for item in bus_type]
-        filtered_data = filtered_data[filtered_data['bus_type_normalized'].apply(
+        filtered_data = filtered_data[filtered_data['Bus_Type'].apply(
             lambda x: any(bt in x for bt in normalized_bus_type)
         )]
     # if bus_type:
@@ -94,7 +94,7 @@ elif page == "RedBus Search":
     # if bus_type:
     #     filtered_data = filtered_data[filtered_data["Bus_Type"].isin(bus_type)]
         
-    # print(f'The fil data is {filtered_data["Bus_Type"]}')
+    # print(f'The fill data is {filtered_data["Bus_Type"]}')
 
     # Display data
     st.write(f"### Search Results ({len(filtered_data)})")
@@ -109,4 +109,4 @@ elif page == "RedBus Search":
     )
    
 # Create footer
-st.markdown('<div class="footer">© 2024 RedBus Scraping App | All Rights Reserved</div>', unsafe_allow_html=True)
+st.markdown('<div class="footer">© 2024 RedBus Scraping App | project by Loshini Raja</div>', unsafe_allow_html=True)
